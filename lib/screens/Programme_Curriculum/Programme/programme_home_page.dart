@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:fusion/Components/appBar.dart';
 import 'package:fusion/Components/side_drawer.dart';
+import 'package:fusion/screens/Programme_Curriculum/Programme/pgTabComponent.dart';
+import 'package:fusion/screens/Programme_Curriculum/Programme/phdTabComponent.dart';
 import 'package:fusion/screens/Programme_Curriculum/Programme/tabComponent.dart';
+import 'package:fusion/screens/Programme_Curriculum/Programme/ugTabComponent.dart';
 // import 'package:fusion/models/academic.dart';
 
 class Programme extends StatefulWidget {
@@ -108,9 +111,9 @@ class _ProgrammeState extends State<Programme> {
         drawer: SideDrawer(),
         body: TabBarView(
           children: [
-            TabComponent(data: data1),
-            TabComponent(data: data2),
-            TabComponent(data: data3)
+            ugTabComponent(),
+            pgTabComponent(),
+            phdTabComponent()
           ],
         ),
       ),
