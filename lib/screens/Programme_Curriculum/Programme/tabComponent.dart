@@ -9,70 +9,75 @@ class TabComponent extends StatefulWidget {
 }
 
 class _TabComponentState extends State<TabComponent> {
+  late Map? table;
+  late String? column1;
+  late String? column2;
+  var rows;
+  var columns;
+
+  @override
+  void initState() {
+    super.initState();
+    table = widget.data?['table'];
+    rows = table?['rows'];
+    columns = table?['columns'];
+  }
+
   @override
   Widget build(BuildContext context) {
-    Map? table = widget.data?['table'];
-    String? column1 = table?['column1'];
-    String? column2 = table?['column2'];
-    Object? rows = table?['rows'];
-    print(rows);
-    // rows.forEach(
-    //   (element) => {
-    //     print(element.toList()),
-    //   },
-    // );
     return Container(
-      child: Column(
-        children: [
-          SizedBox(height: 20),
-          Text('test'),
-          Expanded(
-            child: Center(
-              child: Text(
-                "Component to be reused",
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-              ),
-            ),
-          )
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        //Component to lay table on the page
+        child: DataTable(
+          // headingRowColor:
+          //     MaterialStateColor.resolveWith((states) => Colors.blue),
+          dataRowHeight: 80.0,
+          columnSpacing: 25.0,
+          columns: tabColumnList(),
+          rows: tabRowList(),
+          // rows: [],
+        ),
       ),
     );
   }
-}
 
-// List<DataRow> complaintList() {
-//   //Get the list of json and map through, to select each json and lay row to the table..
-//   return rows
-//       .map(
-//         ((element) => DataRow(
-//               cells: <DataCell>[
-//                 DataCell(Container(
-//                     width: 40, //SET width
-//                     child: Text(element[
-//                         "Month"]!))), //Extracting from Map element the value
-//                 DataCell(Container(
-//                     width: 50, //SET width
-//                     child: Text(
-//                       element["Year"]!,
-//                     ))),
-//                 DataCell(Container(
-//                     width: 57, //SET width
-//                     child: Text(element["Amount"]!))),
-//                 DataCell(Container(
-//                     width: 57, //SET width
-//                     child: Text(element["Description"]!))),
-//                 DataCell(Container(
-//                     width: 57, //SET width
-//                     child: Text(element["Rebate count"]!))),
-//                 DataCell(Container(
-//                     width: 57, //SET width
-//                     child: Text(element["Rebate Amount"]!))),
-//                 DataCell(Container(
-//                     width: 57, //SET width
-//                     child: Text(element["Total Bill"]!))),
-//               ],
-//             )),
-//       )
-//       .toList();
-// }
+  List<DataColumn> tabColumnList() {
+    //Get the list of json and map through, to select each json and lay row to the table..
+
+    List<DataColumn> data = [];
+    data = columns
+        .map(
+          (el) {
+            return DataColumn(
+                label: Text(el,
+                    style:
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold)));
+          },
+        )
+        .toList()
+        .cast<DataColumn>();
+    return data;
+  }
+
+  List<DataRow> tabRowList() {
+    //Get the list of json and map through, to select each json and lay row to the table..
+    List<DataRow> data = [];
+    data = rows
+        .map(
+          (el) {
+            return DataRow(
+              cells: el
+                  .map((e) => DataCell(Container(
+                      //SET width
+                      child: Text(e))))
+                  .toList()
+                  .cast<DataCell>(),
+            );
+          },
+        )
+        .toList()
+        .cast<DataRow>();
+    return data;
+  }
+}

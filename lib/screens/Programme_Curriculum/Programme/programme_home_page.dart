@@ -11,41 +11,38 @@ class Programme extends StatefulWidget {
 
 class _ProgrammeState extends State<Programme> {
   final data1 = {
-    "table": {
-      "column1": "Programmes",
-      "column2": "Discipline",
+    "table": <String, dynamic>{
+      "columns": ["Programmes", "Discipline"],
       "rows": [
-        {"B.Tech ME", "Mechanical Engineering"},
-        {"B.Design", "Design"},
-        {"B.Tech CSE", "Computer Science and Engineering"},
-        {"B.Tech ECE", "Electronics and Communication Engineering"},
-        {"B.Tech SM", "Smart Manufacturing"},
+        ["B.Tech ME", "Mechanical Engineering"],
+        ["B.Design", "Design"],
+        ["B.Tech CSE", "Computer Science and Engineering"],
+        ["B.Tech ECE", "Electronics and Communication Engineering"],
+        ["B.Tech SM", "Smart Manufacturing"],
       ]
     }
   };
   final data2 = {
     "table": {
-      "column1": "Programmes",
-      "column2": "Discipline",
+      "columns": ["Programmes", "Discipline"],
       "rows": [
-        {"M.Tech CSE", "Computer Science and Engineering"},
-        {"M.Tech ECE", "Electronics and Communication Engineering"},
-        {"M.Tech ME", "Mechanical Engineering"},
-        {"M.Tech Mechatronics", "Mechatronics"},
-        {"M.Des Design", "Design"},
+        ["M.Tech CSE", "Computer Science and Engineering"],
+        ["M.Tech ECE", "Electronics and Communication Engineering"],
+        ["M.Tech ME", "Mechanical Engineering"],
+        ["M.Tech Mechatronics", "Mechatronics"],
+        ["M.Des Design", "Design"],
       ]
     }
   };
   final data3 = {
     "table": {
-      "column1": "Programmes",
-      "column2": "Discipline",
+      "columns": ["Programmes", "Discipline"],
       "rows": [
-        {"Phd in CSE", "Computer Science and Engineering"},
-        {"Phd in ECE", "Electronics and Communication Engineering"},
-        {"Phd in ME", "Mechanical Engineering"},
-        {"Phd in Physics", "Natural Sciences-Physics"},
-        {"Phd in Maths", "Natural Sciences-Mathematics"},
+        ["Phd in CSE", "Computer Science and Engineering"],
+        ["Phd in ECE", "Electronics and Communication Engineering"],
+        ["Phd in ME", "Mechanical Engineering"],
+        ["Phd in Physics", "Natural Sciences-Physics"],
+        ["Phd in Maths", "Natural Sciences-Mathematics"],
       ]
     }
   };
