@@ -12,8 +12,7 @@ class Programme extends StatefulWidget {
 class _ProgrammeState extends State<Programme> {
   final data1 = {
     "table": <String, dynamic>{
-      "column1": "Programmes",
-      "column2": "Discipline",
+      "columns": ["Programmes", "Discipline"],
       "rows": [
         ["B.Tech ME", "Mechanical Engineering"],
         ["B.Design", "Design"],
@@ -25,8 +24,7 @@ class _ProgrammeState extends State<Programme> {
   };
   final data2 = {
     "table": {
-      "column1": "Programmes",
-      "column2": "Discipline",
+      "columns": ["Programmes", "Discipline"],
       "rows": [
         ["M.Tech CSE", "Computer Science and Engineering"],
         ["M.Tech ECE", "Electronics and Communication Engineering"],
@@ -38,8 +36,7 @@ class _ProgrammeState extends State<Programme> {
   };
   final data3 = {
     "table": {
-      "column1": "Programmes",
-      "column2": "Discipline",
+      "columns": ["Programmes", "Discipline"],
       "rows": [
         ["Phd in CSE", "Computer Science and Engineering"],
         ["Phd in ECE", "Electronics and Communication Engineering"],

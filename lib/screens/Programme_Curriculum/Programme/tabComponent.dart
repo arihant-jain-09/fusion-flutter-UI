@@ -13,15 +13,14 @@ class _TabComponentState extends State<TabComponent> {
   late String? column1;
   late String? column2;
   var rows;
+  var columns;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     table = widget.data?['table'];
-    column1 = table?['column1'];
-    column2 = table?['column2'];
     rows = table?['rows'];
+    columns = table?['columns'];
   }
 
   @override
@@ -34,19 +33,8 @@ class _TabComponentState extends State<TabComponent> {
           // headingRowColor:
           //     MaterialStateColor.resolveWith((states) => Colors.blue),
           dataRowHeight: 80.0,
-          columnSpacing: 10.0,
-          columns: [
-            //DataColumns to lay columns of the table
-            DataColumn(
-                label: Text('Month',
-                    style:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text('Year',
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold))),
-          ],
-          //This method will get lay all the rows
+          columnSpacing: 25.0,
+          columns: tabColumnList(),
           rows: tabRowList(),
           // rows: [],
         ),
@@ -54,18 +42,34 @@ class _TabComponentState extends State<TabComponent> {
     );
   }
 
-  List<DataRow> tabRowList() {
+  List<DataColumn> tabColumnList() {
     //Get the list of json and map through, to select each json and lay row to the table..
 
+    List<DataColumn> data = [];
+    data = columns
+        .map(
+          (el) {
+            return DataColumn(
+                label: Text(el,
+                    style:
+                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold)));
+          },
+        )
+        .toList()
+        .cast<DataColumn>();
+    return data;
+  }
+
+  List<DataRow> tabRowList() {
+    //Get the list of json and map through, to select each json and lay row to the table..
     List<DataRow> data = [];
     data = rows
         .map(
           (el) {
-            print(el);
             return DataRow(
               cells: el
                   .map((e) => DataCell(Container(
-                      width: 40, //SET width
+                      //SET width
                       child: Text(e))))
                   .toList()
                   .cast<DataCell>(),
@@ -74,7 +78,6 @@ class _TabComponentState extends State<TabComponent> {
         )
         .toList()
         .cast<DataRow>();
-
     return data;
   }
 }
