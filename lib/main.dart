@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/screens/Programme_Curriculum/Programme_Info/programme_info.dart';
 import 'dart:async';
 import 'package:fusion/screens/landing_page.dart';
 //Academic
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/academic_home_page': (context) => AcademicHomePage(),
         '/programme_curriculum_home': (context) => ProgrammeCurriculumHome(),
         '/programme_curriculum_home/programme': (context) => Programme(),
+        '/programme_curriculum_home/programme_info': (context) =>
+            ProgrammeInfo(),
       },
     );
   }

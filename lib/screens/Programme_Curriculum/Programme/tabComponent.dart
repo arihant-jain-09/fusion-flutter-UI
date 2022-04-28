@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/screens/Programme_Curriculum/Programme_Info/programme_info.dart';
 
 class TabComponent extends StatefulWidget {
   final data;
@@ -68,9 +69,16 @@ class _TabComponentState extends State<TabComponent> {
           (el) {
             return DataRow(
               cells: el
-                  .map((e) => DataCell(Container(
-                      //SET width
-                      child: Text(e))))
+                  .map((e) => DataCell(GestureDetector(
+                        onTap: () => {
+                          Navigator.pushNamed(context,
+                              '/programme_curriculum_home/programme_info',
+                              arguments: {'e': e})
+                        },
+                        child: Container(
+                            //SET width
+                            child: Text(e)),
+                      )))
                   .toList()
                   .cast<DataCell>(),
             );
