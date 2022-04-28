@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:fusion/Components/appBar.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:fusion/Components/side_drawer.dart';
 import 'package:fusion/screens/Programme_Curriculum/Programme/tabComponent.dart';
 // import 'package:fusion/models/academic.dart';
+import 'package:csv/csv.dart';
 
 class Programme extends StatefulWidget {
   @override
@@ -10,46 +12,57 @@ class Programme extends StatefulWidget {
 }
 
 class _ProgrammeState extends State<Programme> {
-  final data1 = {
-    "table": <String, dynamic>{
-      "columns": ["Programmes", "Discipline"],
-      "rows": [
-        ["B.Tech ME", "Mechanical Engineering"],
-        ["B.Design", "Design"],
-        ["B.Tech CSE", "Computer Science and Engineering"],
-        ["B.Tech ECE", "Electronics and Communication Engineering"],
-        ["B.Tech SM", "Smart Manufacturing"],
-      ]
-    }
-  };
-  final data2 = {
-    "table": {
-      "columns": ["Programmes", "Discipline"],
-      "rows": [
-        ["M.Tech CSE", "Computer Science and Engineering"],
-        ["M.Tech ECE", "Electronics and Communication Engineering"],
-        ["M.Tech ME", "Mechanical Engineering"],
-        ["M.Tech Mechatronics", "Mechatronics"],
-        ["M.Des Design", "Design"],
-      ]
-    }
-  };
-  final data3 = {
-    "table": {
-      "columns": ["Programmes", "Discipline"],
-      "rows": [
-        ["Phd in CSE", "Computer Science and Engineering"],
-        ["Phd in ECE", "Electronics and Communication Engineering"],
-        ["Phd in ME", "Mechanical Engineering"],
-        ["Phd in Physics", "Natural Sciences-Physics"],
-        ["Phd in Maths", "Natural Sciences-Mathematics"],
-      ]
-    }
-  };
+  List<List<dynamic>> _ug = [];
+  List<List<dynamic>> _pg = [];
+  List<List<dynamic>> _phd = [];
+  void _loadCSV() async {
+    final _underGraduate =
+        await rootBundle.loadString("db/UG_Under_Graduate.csv");
+    final _postGraduate =
+        await rootBundle.loadString("db/PG_Post_Graduate.csv");
+    final _phdGraduate = await rootBundle.loadString("db/PHD_Graduate.csv");
+    List<List<dynamic>> _listUG =
+        const CsvToListConverter().convert(_underGraduate);
+    List<List<dynamic>> _listPG =
+        const CsvToListConverter().convert(_postGraduate);
+    List<List<dynamic>> _listPHD =
+        const CsvToListConverter().convert(_phdGraduate);
+    setState(() {
+      _ug = _listUG;
+      _pg = _listPG;
+      _phd = _listPHD;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _loadCSV();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final AcademicData data =
     //     ModalRoute.of(context)?.settings.arguments as AcademicData;
+
+    final data_UG = {
+      "table": <String, dynamic>{
+        "columns": _ug[0],
+        "rows": _ug.skip(1).map((e) => e)
+      }
+    };
+    final data_PG = {
+      "table": <String, dynamic>{
+        "columns": _pg[0],
+        "rows": _pg.skip(1).map((e) => e)
+      }
+    };
+    final data_PHD = {
+      "table": <String, dynamic>{
+        "columns": _phd[0],
+        "rows": _phd.skip(1).map((e) => e)
+      }
+    };
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -105,9 +118,9 @@ class _ProgrammeState extends State<Programme> {
         drawer: SideDrawer(),
         body: TabBarView(
           children: [
-            TabComponent(data: data1),
-            TabComponent(data: data2),
-            TabComponent(data: data3)
+            TabComponent(data: data_UG),
+            TabComponent(data: data_PG),
+            TabComponent(data: data_PHD)
           ],
         ),
       ),
