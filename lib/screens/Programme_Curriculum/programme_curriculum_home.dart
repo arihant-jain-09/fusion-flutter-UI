@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusion/Components/appBar.dart';
 import 'package:fusion/Components/side_drawer.dart';
+import 'package:fusion/screens/Programme_Curriculum/Courses/coursesHomePage.dart';
 
 class ProgrammeCurriculumHome extends StatefulWidget {
   @override
@@ -144,9 +145,7 @@ class _ProgrammeCurriculumHomeState extends State<ProgrammeCurriculumHome> {
                 InkWell(
                   child: myContainer("Courses"),
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //     context, '/academic_home_page/dues',
-                    //     arguments: data);
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => coursesHomePage()));
                   },
                 ),
                 InkWell(
