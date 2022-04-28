@@ -77,7 +77,7 @@ class _TabComponentState extends State<TabComponent> {
                         },
                         child: Container(
                             //SET width
-                            child: Text(e)),
+                            child: Text(e != null ? '$e' : "Empty")),
                       )))
                   .toList()
                   .cast<DataCell>(),
