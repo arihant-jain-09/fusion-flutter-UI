@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fusion/screens/Programme_Curriculum/Programme_Info/programme_info.dart';
 
-class TabComponent extends StatefulWidget {
+class CourseTabComponent extends StatefulWidget {
   final data;
-  const TabComponent({Key? key, this.data}) : super(key: key);
+  const CourseTabComponent({Key? key, this.data}) : super(key: key);
 
   @override
-  _TabComponentState createState() => _TabComponentState();
+  _CourseTabComponentState createState() => _CourseTabComponentState();
 }
 
-class _TabComponentState extends State<TabComponent> {
+class _CourseTabComponentState extends State<CourseTabComponent> {
   late Map? table;
-  late String? column1;
-  late String? column2;
   var rows;
   var columns;
 
@@ -22,24 +19,28 @@ class _TabComponentState extends State<TabComponent> {
     table = widget.data?['table'];
     rows = table?['rows'];
     columns = table?['columns'];
+    print(rows);
+    print(columns);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        //Component to lay table on the page
-        child: DataTable(
-          // headingRowColor:
-          //     MaterialStateColor.resolveWith((states) => Colors.blue),
-          dataRowHeight: 80.0,
-          columnSpacing: 25.0,
-          columns: tabColumnList(),
-          rows: tabRowList(),
-          // rows: [],
-        ),
-      ),
+          scrollDirection: Axis.horizontal,
+          //Component to lay table on the page
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: DataTable(
+              // headingRowColor:
+              //     MaterialStateColor.resolveWith((states) => Colors.blue),
+              dataRowHeight: 80.0,
+              columnSpacing: 15.0,
+              columns: tabColumnList(),
+              rows: tabRowList(),
+              // rows: [],
+            ),
+          )),
     );
   }
 
@@ -50,6 +51,7 @@ class _TabComponentState extends State<TabComponent> {
     data = columns
         .map(
           (el) {
+            print(el);
             return DataColumn(
                 label: Text(el.toString(),
                     style:
@@ -71,12 +73,13 @@ class _TabComponentState extends State<TabComponent> {
               cells: el
                   .map((e) => DataCell(GestureDetector(
                         onTap: () => {
-                          Navigator.pushNamed(context,
-                              '/programme_curriculum_home/programme_info',
-                              arguments: {'e': e})
+                          // Navigator.pushNamed(context,
+                          //     '/programme_curriculum_home/programme_info',
+                          //     arguments: {'e': e})
                         },
                         child: Container(
                             //SET width
+                            constraints: BoxConstraints(maxWidth: 200),
                             child: Text(e.toString())),
                       )))
                   .toList()
