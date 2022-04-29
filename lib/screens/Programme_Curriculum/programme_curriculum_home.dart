@@ -144,14 +144,17 @@ class _ProgrammeCurriculumHomeState extends State<ProgrammeCurriculumHome> {
                 InkWell(
                   child: myContainer("Courses"),
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //     context, '/academic_home_page/dues',
-                    //     arguments: data);
+                    Navigator.pushNamed(
+                        context, '/programme_curriculum_home/courses',
+                        arguments: data);
                   },
                 ),
                 InkWell(
                   child: myContainer("Disciplines"),
                   onTap: () {
+                    Navigator.pushNamed(
+                        context, '/programme_curriculum_home/discipline',
+                        arguments: data);
                     // Navigator.pushNamed(
                     //     context, '/academic_home_page/bonafide',
                     //     arguments: {
@@ -167,9 +170,9 @@ class _ProgrammeCurriculumHomeState extends State<ProgrammeCurriculumHome> {
                 InkWell(
                   child: myContainer("Batches"),
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //     context, '/academic_home_page/attendance',
-                    //     arguments: data);
+                    Navigator.pushNamed(
+                        context, '/programme_curriculum_home/batches',
+                        arguments: data);
                   },
                 ),
               ],
