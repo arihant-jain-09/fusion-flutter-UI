@@ -19,8 +19,6 @@ class _CourseTabComponentState extends State<CourseTabComponent> {
     table = widget.data?['table'];
     rows = table?['rows'];
     columns = table?['columns'];
-    print(rows);
-    print(columns);
   }
 
   @override
@@ -51,7 +49,6 @@ class _CourseTabComponentState extends State<CourseTabComponent> {
     data = columns
         .map(
           (el) {
-            print(el);
             return DataColumn(
                 label: Text(el.toString(),
                     style:

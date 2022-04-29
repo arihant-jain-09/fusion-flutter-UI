@@ -17,10 +17,7 @@ class _ProgrammeInfoState extends State<ProgrammeInfo> {
     final _underGraduate = await rootBundle.loadString("db/UG_programmes.csv");
     List<List<dynamic>> _listUG =
         const CsvToListConverter().convert(_underGraduate);
-
-    setState(() {
-      _ugProgrammes = _listUG;
-    });
+    _ugProgrammes = _listUG;
   }
 
   @override
@@ -35,7 +32,6 @@ class _ProgrammeInfoState extends State<ProgrammeInfo> {
     //     ModalRoute.of(context)?.settings.arguments as AcademicData;
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-    print(arguments);
     var dat = _ugProgrammes.skip(1).map((e) => e.skip(1).take(1).toList());
 
     // final data_UGProgrammes = {

@@ -136,9 +136,9 @@ class _ProgrammeCurriculumHomeState extends State<ProgrammeCurriculumHome> {
                 InkWell(
                   child: myContainer("Curriculums"),
                   onTap: () {
-                    // Navigator.pushNamed(context,
-                    //     '/academic_home_page/registration_home_page',
-                    //     arguments: data);
+                    Navigator.pushNamed(
+                        context, '/programme_curriculum_home/curriculum',
+                        arguments: data);
                   },
                 ),
                 InkWell(

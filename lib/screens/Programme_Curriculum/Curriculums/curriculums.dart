@@ -2,30 +2,23 @@ import 'package:flutter/material.dart';
 // import 'package:fusion/Components/appBar.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:fusion/Components/side_drawer.dart';
-import 'batchTabComponent.dart';
 // import 'package:fusion/models/academic.dart';
 import 'package:csv/csv.dart';
+import 'package:fusion/screens/Programme_Curriculum/Curriculums/tab_curriculum.dart';
 
-class Batches extends StatefulWidget {
+class Curriculum extends StatefulWidget {
   @override
-  State<Batches> createState() => _BatchesState();
+  _CurriculumState createState() => _CurriculumState();
 }
 
-class _BatchesState extends State<Batches> {
-  List<List<dynamic>> _currentBatchesList = [];
-  List<List<dynamic>> _finishedBatchesList = [];
-
+class _CurriculumState extends State<Curriculum> {
+  List<List<dynamic>> _curriculum = [];
   Future<int> _loadCSV() async {
-    final _batchesData = await rootBundle.loadString('db/Batches.csv');
-    final _finishedData = await rootBundle.loadString('db/Batches.csv');
-
-    List<List<dynamic>> _currentList =
-        const CsvToListConverter().convert(_batchesData);
-    List<List<dynamic>> _finishedList =
-        const CsvToListConverter().convert(_finishedData);
-
-    _currentBatchesList = _currentList;
-    _finishedBatchesList = _finishedList;
+    final _underGraduate =
+        await rootBundle.loadString("db/Working_Curriculum.csv");
+    List<List<dynamic>> _listCurr =
+        const CsvToListConverter().convert(_underGraduate);
+    _curriculum = _listCurr;
     return 1;
   }
 
@@ -37,24 +30,18 @@ class _BatchesState extends State<Batches> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<Object>(
         future: _loadCSV(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Scaffold();
-          final data_CurrentBatches = {
-            "table": <dynamic, dynamic>{
-              "columns": _currentBatchesList[0],
-              "rows": _currentBatchesList.skip(1).map((e) => e)
-            }
-          };
-          final data_FinishedBatches = {
-            "table": <dynamic, dynamic>{
-              "columns": _finishedBatchesList[0],
-              "rows": _finishedBatchesList.skip(1).map((e) => e)
+          final data = {
+            "table": <String, dynamic>{
+              "columns": _curriculum[0],
+              "rows": _curriculum.skip(1).map((e) => e)
             }
           };
           return DefaultTabController(
-            length: 2,
+            length: 1,
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.black,
@@ -84,14 +71,7 @@ class _BatchesState extends State<Batches> {
                     Tab(
                       child: Container(
                         child: Text(
-                          'Batches',
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        child: Text(
-                          'Finished Batches',
+                          'Working Curriculumns',
                         ),
                       ),
                     ),
@@ -101,8 +81,7 @@ class _BatchesState extends State<Batches> {
               drawer: SideDrawer(),
               body: TabBarView(
                 children: [
-                  BatchTabComponent(data: data_CurrentBatches),
-                  BatchTabComponent(data: data_FinishedBatches),
+                  TabCurriculum(data: data),
                 ],
               ),
             ),

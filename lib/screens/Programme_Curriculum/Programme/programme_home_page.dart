@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 // import 'package:fusion/Components/appBar.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -15,7 +17,7 @@ class _ProgrammeState extends State<Programme> {
   List<List<dynamic>> _ug = [];
   List<List<dynamic>> _pg = [];
   List<List<dynamic>> _phd = [];
-  void _loadCSV() async {
+  Future<int> _loadCSV() async {
     final _underGraduate =
         await rootBundle.loadString("db/UG_Under_Graduate.csv");
     final _postGraduate =
@@ -32,12 +34,14 @@ class _ProgrammeState extends State<Programme> {
       _pg = _listPG;
       _phd = _listPHD;
     });
+
+    return 1;
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _loadCSV();
+    // _loadCSV();
   }
 
   @override
@@ -45,85 +49,92 @@ class _ProgrammeState extends State<Programme> {
     // final AcademicData data =
     //     ModalRoute.of(context)?.settings.arguments as AcademicData;
 
-    final data_UG = {
-      "table": <String, dynamic>{
-        "columns": _ug[0],
-        "rows": _ug.skip(1).map((e) => e)
-      }
-    };
-    final data_PG = {
-      "table": <String, dynamic>{
-        "columns": _pg[0],
-        "rows": _pg.skip(1).map((e) => e)
-      }
-    };
-    final data_PHD = {
-      "table": <String, dynamic>{
-        "columns": _phd[0],
-        "rows": _phd.skip(1).map((e) => e)
-      }
-    };
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text(
-            "FUSION",
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.search),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.notifications),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.more_vert),
-            ),
-          ],
-          bottom: TabBar(
-            isScrollable: true,
-            indicatorColor: Colors.white,
-            indicatorWeight: 6.0,
-            tabs: [
-              Tab(
-                child: Container(
-                  child: Text(
-                    'UG: Under Graduate',
+    return FutureBuilder(
+        future: _loadCSV(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Scaffold();
+
+          final data_UG = {
+            "table": <String, dynamic>{
+              "columns": _ug[0],
+              "rows": _ug.skip(1).map((e) => e)
+            }
+          };
+          final data_PG = {
+            "table": <String, dynamic>{
+              "columns": _pg[0],
+              "rows": _pg.skip(1).map((e) => e)
+            }
+          };
+          final data_PHD = {
+            "table": <String, dynamic>{
+              "columns": _phd[0],
+              "rows": _phd.skip(1).map((e) => e)
+            }
+          };
+
+          return DefaultTabController(
+            length: 3,
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.black,
+                title: Text(
+                  "FUSION",
+                  style: TextStyle(color: Colors.white),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.search),
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.notifications),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.more_vert),
+                  ),
+                ],
+                bottom: TabBar(
+                  isScrollable: true,
+                  indicatorColor: Colors.white,
+                  indicatorWeight: 6.0,
+                  tabs: [
+                    Tab(
+                      child: Container(
+                        child: Text(
+                          'UG: Under Graduate',
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Container(
+                        child: Text(
+                          'PG: Post Graduate',
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Container(
+                        child: Text(
+                          'PHD:Doctor of Philosopy',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Tab(
-                child: Container(
-                  child: Text(
-                    'PG: Post Graduate',
-                  ),
-                ),
+              drawer: SideDrawer(),
+              body: TabBarView(
+                children: [
+                  TabComponent(data: data_UG),
+                  TabComponent(data: data_PG),
+                  TabComponent(data: data_PHD)
+                ],
               ),
-              Tab(
-                child: Container(
-                  child: Text(
-                    'PHD:Doctor of Philosopy',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        drawer: SideDrawer(),
-        body: TabBarView(
-          children: [
-            TabComponent(data: data_UG),
-            TabComponent(data: data_PG),
-            TabComponent(data: data_PHD)
-          ],
-        ),
-      ),
-    );
+            ),
+          );
+        });
   }
 }
