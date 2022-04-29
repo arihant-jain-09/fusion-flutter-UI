@@ -34,7 +34,7 @@ class _TabComponentState extends State<TabComponent> {
           // headingRowColor:
           //     MaterialStateColor.resolveWith((states) => Colors.blue),
           dataRowHeight: 80.0,
-          columnSpacing: 25.0,
+          columnSpacing: 30.0,
           columns: tabColumnList(),
           rows: tabRowList(),
           // rows: [],
@@ -51,7 +51,7 @@ class _TabComponentState extends State<TabComponent> {
         .map(
           (el) {
             return DataColumn(
-                label: Text(el.toString(),
+                label: Text(el.toString().toUpperCase(),
                     style:
                         TextStyle(fontSize: 13, fontWeight: FontWeight.bold)));
           },
@@ -77,6 +77,7 @@ class _TabComponentState extends State<TabComponent> {
                         },
                         child: Container(
                             //SET width
+                            constraints: BoxConstraints(maxWidth: 180),
                             child: Text(e.toString())),
                       )))
                   .toList()

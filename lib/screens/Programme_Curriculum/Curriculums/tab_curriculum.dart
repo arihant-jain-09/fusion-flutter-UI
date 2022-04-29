@@ -51,7 +51,7 @@ class _TabCurriculumState extends State<TabCurriculum> {
         .map(
           (el) {
             return DataColumn(
-                label: Text(el,
+                label: Text(el.toString().toUpperCase(),
                     style:
                         TextStyle(fontSize: 13, fontWeight: FontWeight.bold)));
           },
@@ -71,6 +71,7 @@ class _TabCurriculumState extends State<TabCurriculum> {
               cells: el
                   .map((e) => DataCell(Container(
                       //SET width
+                      constraints: BoxConstraints(maxWidth: 180),
                       child: Text(e.toString()))))
                   .toList()
                   .cast<DataCell>(),
