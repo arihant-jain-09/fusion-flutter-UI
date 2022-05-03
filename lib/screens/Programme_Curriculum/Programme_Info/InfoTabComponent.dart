@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TabComponent extends StatefulWidget {
+class InfoTabComponent extends StatefulWidget {
   final data;
-  const TabComponent({Key? key, this.data}) : super(key: key);
+  const InfoTabComponent({Key? key, this.data}) : super(key: key);
 
   @override
-  _TabComponentState createState() => _TabComponentState();
+  _InfoTabComponentState createState() => _InfoTabComponentState();
 }
 
-class _TabComponentState extends State<TabComponent> {
+class _InfoTabComponentState extends State<InfoTabComponent> {
   late Map? table;
   late String? column1;
   late String? column2;
@@ -21,6 +21,7 @@ class _TabComponentState extends State<TabComponent> {
     table = widget.data?['table'];
     rows = table?['rows'];
     columns = table?['columns'];
+    print("mounted");
   }
 
   @override
@@ -69,11 +70,7 @@ class _TabComponentState extends State<TabComponent> {
             return DataRow(
               cells: el
                   .map((e) => DataCell(GestureDetector(
-                        onTap: () => {
-                          Navigator.pushNamed(context,
-                              '/programme_curriculum_home/programme_info',
-                              arguments: {'e': e})
-                        },
+                        onTap: () => {},
                         child: Container(
                             //SET width
                             constraints: BoxConstraints(maxWidth: 180),

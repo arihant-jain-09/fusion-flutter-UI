@@ -29,11 +29,9 @@ class _ProgrammeState extends State<Programme> {
         const CsvToListConverter().convert(_postGraduate);
     List<List<dynamic>> _listPHD =
         const CsvToListConverter().convert(_phdGraduate);
-    setState(() {
-      _ug = _listUG;
-      _pg = _listPG;
-      _phd = _listPHD;
-    });
+    _ug = _listUG;
+    _pg = _listPG;
+    _phd = _listPHD;
 
     return 1;
   }
@@ -72,7 +70,7 @@ class _ProgrammeState extends State<Programme> {
               "rows": _phd.skip(1).map((e) => e)
             }
           };
-
+          print(data_UG);
           return DefaultTabController(
             length: 3,
             child: Scaffold(

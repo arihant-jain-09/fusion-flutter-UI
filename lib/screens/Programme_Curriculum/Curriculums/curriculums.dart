@@ -40,6 +40,22 @@ class _CurriculumState extends State<Curriculum> {
               "rows": _curriculum.skip(1).map((e) => e)
             }
           };
+          // List<dynamic> keys =
+          //     _curriculum.skip(1).map((e) => e.elementAt(0)).toSet().toList();
+          // List<dynamic> values =
+          //     _curriculum.skip(1).map(((e) => e.elementAt(2))).toList();
+
+          List<dynamic> key_val = _curriculum
+              .skip(1)
+              .map(((e) => [e.elementAt(0), e.elementAt(2)]))
+              .toList();
+          // print(keys);
+          // print(key_val);
+          int count = 0;
+          for (var i = 0; i < key_val.length; i++) {
+            print(key_val[i][0] == key_val[i][1]);
+          }
+
           return DefaultTabController(
             length: 1,
             child: Scaffold(
