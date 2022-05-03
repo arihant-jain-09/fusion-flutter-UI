@@ -12,13 +12,38 @@ class ProgrammeInfo extends StatefulWidget {
 }
 
 class _ProgrammeInfoState extends State<ProgrammeInfo> {
-  List<List<dynamic>> _ugProgrammes = [];
+  // List<List<dynamic>> _ugProgrammes = [];
+  // List<List<dynamic>> _pgProgrammes = [];
+  // List<List<dynamic>> _phdProgrammes = [];
+  List<List<dynamic>> _selectProgrammes = [];
+  List<List<dynamic>> _curriculum = [];
+  List<dynamic> _filteredList = [];
   int index = -1;
   Future<int> _loadCSV() async {
-    final _underGraduate = await rootBundle.loadString("db/UG_programmes.csv");
-    List<List<dynamic>> _listUG =
-        const CsvToListConverter().convert(_underGraduate);
-    _ugProgrammes = _listUG;
+    // final _underGraduate = await rootBundle.loadString("db/UG_programmes.csv");
+    // List<List<dynamic>> _listUG =
+    //     const CsvToListConverter().convert(_underGraduate);
+    // final _postGraduate = await rootBundle.loadString("db/PG_Programmes.csv");
+    // List<List<dynamic>> _listPG =
+    //     const CsvToListConverter().convert(_postGraduate);
+    // final _phdGraduate = await rootBundle.loadString("db/PHD_Programmes.csv");
+    // List<List<dynamic>> _listPHD =
+    //     const CsvToListConverter().convert(_phdGraduate);
+
+    final _allGraduate = await rootBundle.loadString("db/ALL_Programmes.csv");
+    List<List<dynamic>> _listALL =
+        const CsvToListConverter().convert(_allGraduate);
+
+    final _workingCurriculum =
+        await rootBundle.loadString("db/Working_Curriculum1.csv");
+    List<List<dynamic>> _listCurr =
+        const CsvToListConverter().convert(_workingCurriculum);
+
+    _curriculum = _listCurr;
+    // _ugProgrammes = _listUG;
+    // _pgProgrammes = _listPG;
+    // _phdProgrammes = _listPHD;
+    _selectProgrammes = _listALL;
     return 1;
   }
 
@@ -38,33 +63,60 @@ class _ProgrammeInfoState extends State<ProgrammeInfo> {
         future: _loadCSV(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Scaffold();
-          var dat = _ugProgrammes
+
+          var dat = _selectProgrammes
               .skip(1)
               .map((e) => e.skip(1).take(1).toString())
               .toList();
-          print(dat);
+
+          print(dat.toString() + " dat");
           for (var i = 0; i < dat.length; i++) {
             if (dat[i].replaceAll("(", "").replaceAll(")", "") ==
                 arguments['e']) {
               index = i;
             }
           }
+
           final info_data = {
             "table": <dynamic, dynamic>{
               "columns": [arguments['e'], ""],
               "rows": [
-                ["Programme Category", _ugProgrammes[index + 1][0].toString()],
-                ["Programme Name", _ugProgrammes[index + 1][1].toString()],
+                [
+                  "Programme Category",
+                  _selectProgrammes[index + 1][0].toString()
+                ],
+                ["Programme Name", _selectProgrammes[index + 1][1].toString()],
                 [
                   "Programme Begin Year",
-                  _ugProgrammes[index + 1][2].toString()
+                  _selectProgrammes[index + 1][2].toString()
                 ],
               ].map((e) => e)
             }
           };
+          var dat_curriculum = _curriculum
+              .skip(1)
+              .map((e) => e.skip(2).take(1).toString())
+              .toList();
+          print(arguments['e'].toString());
+          // print(dat_curriculum);
+
+          for (var i = 0; i < dat_curriculum.length; i++) {
+            var temp =
+                dat_curriculum[i].replaceAll("(", "").replaceAll(")", "");
+
+            if (temp.contains(arguments['e'].toString())) {
+              _filteredList.add(_curriculum[i + 1]);
+            }
+          }
+          final info_curriculums = {
+            "table": <String, dynamic>{
+              "columns": _curriculum[0],
+              "rows": _filteredList.map((e) => e)
+            }
+          };
 
           return DefaultTabController(
-            length: 1,
+            length: 2,
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.black,
@@ -98,13 +150,13 @@ class _ProgrammeInfoState extends State<ProgrammeInfo> {
                         ),
                       ),
                     ),
-                    // Tab(
-                    //   child: Container(
-                    //     child: Text(
-                    //       'Working Curriculums',
-                    //     ),
-                    //   ),
-                    // ),
+                    Tab(
+                      child: Container(
+                        child: Text(
+                          'Working Curriculums',
+                        ),
+                      ),
+                    ),
                     // Tab(
                     //   child: Container(
                     //     child: Text(
@@ -119,6 +171,7 @@ class _ProgrammeInfoState extends State<ProgrammeInfo> {
               body: TabBarView(
                 children: [
                   InfoTabComponent(data: info_data),
+                  InfoTabComponent(data: info_curriculums),
                 ],
               ),
             ),

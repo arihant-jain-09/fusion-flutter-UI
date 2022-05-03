@@ -27,18 +27,19 @@ class _TabComponentState extends State<TabComponent> {
   Widget build(BuildContext context) {
     return Container(
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        //Component to lay table on the page
-        child: DataTable(
-          // headingRowColor:
-          //     MaterialStateColor.resolveWith((states) => Colors.blue),
-          dataRowHeight: 80.0,
-          columnSpacing: 30.0,
-          columns: tabColumnList(),
-          rows: tabRowList(),
-          // rows: [],
-        ),
-      ),
+          scrollDirection: Axis.horizontal,
+          //Component to lay table on the page
+          child: SingleChildScrollView(
+            child: DataTable(
+              // headingRowColor:
+              //     MaterialStateColor.resolveWith((states) => Colors.blue),
+              dataRowHeight: 80.0,
+              columnSpacing: 30.0,
+              columns: tabColumnList(),
+              rows: tabRowList(),
+              // rows: [],
+            ),
+          )),
     );
   }
 

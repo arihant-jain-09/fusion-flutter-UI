@@ -30,14 +30,17 @@ class _InfoTabComponentState extends State<InfoTabComponent> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         //Component to lay table on the page
-        child: DataTable(
-          // headingRowColor:
-          //     MaterialStateColor.resolveWith((states) => Colors.blue),
-          dataRowHeight: 80.0,
-          columnSpacing: 30.0,
-          columns: tabColumnList(),
-          rows: tabRowList(),
-          // rows: [],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: DataTable(
+            // headingRowColor:
+            //     MaterialStateColor.resolveWith((states) => Colors.blue),
+            dataRowHeight: 80.0,
+            columnSpacing: 30.0,
+            columns: tabColumnList(),
+            rows: tabRowList(),
+            // rows: [],
+          ),
         ),
       ),
     );
