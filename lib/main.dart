@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion/screens/Programme_Curriculum/Courses_Info/courses_info.dart';
 import 'package:fusion/screens/Programme_Curriculum/Curriculums/curriculums.dart';
 import 'package:fusion/screens/Programme_Curriculum/Programme_Info/programme_info.dart';
 import 'dart:async';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/programme_curriculum_home/programme_info': (context) =>
             ProgrammeInfo(),
         '/programme_curriculum_home/courses': (context) => Courses(),
+        '/programme_curriculum_home/courses_info': (context) => CoursesInfo(),
       },
     );
   }

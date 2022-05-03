@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CourseTabComponent extends StatefulWidget {
+class CourseInfoTabComponent extends StatefulWidget {
   final data;
-  const CourseTabComponent({Key? key, this.data}) : super(key: key);
+  const CourseInfoTabComponent({Key? key, this.data}) : super(key: key);
 
   @override
-  _CourseTabComponentState createState() => _CourseTabComponentState();
+  _CourseInfoTabComponentState createState() => _CourseInfoTabComponentState();
 }
 
-class _CourseTabComponentState extends State<CourseTabComponent> {
+class _CourseInfoTabComponentState extends State<CourseInfoTabComponent> {
   late Map? table;
+  late String? column1;
+  late String? column2;
   var rows;
   var columns;
 
@@ -32,8 +34,8 @@ class _CourseTabComponentState extends State<CourseTabComponent> {
             child: DataTable(
               // headingRowColor:
               //     MaterialStateColor.resolveWith((states) => Colors.blue),
-              dataRowHeight: 80.0,
-              columnSpacing: 15.0,
+              // dataRowHeight: 80,
+              columnSpacing: 25.0,
               columns: tabColumnList(),
               rows: tabRowList(),
               // rows: [],
@@ -50,7 +52,7 @@ class _CourseTabComponentState extends State<CourseTabComponent> {
         .map(
           (el) {
             return DataColumn(
-                label: Text(el.toString(),
+                label: Text(el.toString().toUpperCase(),
                     style:
                         TextStyle(fontSize: 13, fontWeight: FontWeight.bold)));
           },
@@ -70,13 +72,13 @@ class _CourseTabComponentState extends State<CourseTabComponent> {
               cells: el
                   .map((e) => DataCell(GestureDetector(
                         onTap: () => {
-                          Navigator.pushNamed(context,
-                              '/programme_curriculum_home/courses_info',
-                              arguments: {'e': e})
+                          // Navigator.pushNamed(context,
+                          //     '/programme_curriculum_home/programme_info',
+                          //     arguments: {'e': e})
                         },
                         child: Container(
                             //SET width
-                            constraints: BoxConstraints(maxWidth: 200),
+                            // constraints: BoxConstraints(maxWidth: 180),
                             child: Text(e.toString())),
                       )))
                   .toList()
